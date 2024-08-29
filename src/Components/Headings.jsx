@@ -1,15 +1,14 @@
 
 
 const Headings = () => {
+  const allHeadings=["Selected","Name","Gender","Email","Phone","Country"];
   return (
 
-        <div className="flex justify-between w-full px-10 bg-red-300 ">
-            <span>Name</span>
-            <span>Gender</span>
-            <span>Email</span>
-            <span>Phone</span>
-            <span>Country</span>
-        </div>
+        <tr className=" h-[80px] bg-green-600">
+           {allHeadings.map((item,index)=>
+          <th key={index} className="border border-collapse border-black py-4 px-2 border-b-0 text-lg">{item}</th>
+          )}
+        </tr>
 
   )
 }

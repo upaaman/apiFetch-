@@ -9,33 +9,42 @@ import UserDetails from "./UserDetails"
 
 const Table = () => {
   const [currPage, setCurrPage] = useState(1);
-  const [limit,setLimit]=useState(15);
-  const [userData,setUserData]=useState([]);
+  const [limit, setLimit] = useState(15);
+  const [userData, setUserData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [selected, setSelected] = useState([]);
 
-  const [selected,setSelected]=useState([]);
+  const fetchData = async () => {
 
-  const fetchData=async()=>{
-
-    const data=await fetchDataFromApi({limit:limit,pageNumber:currPage})
+    const data = await fetchDataFromApi({ limit: limit, pageNumber: currPage })
     // console.log(data)
     setUserData(data);
   }
   useEffect(() => {
+    setLoading(true);
+    fetchData();
+    setLoading(false);
 
-      fetchData();
-
-  }, [currPage,limit])
+  }, [currPage, limit])
   return (
-  
-    <div className="w-full flex flex-col  ">
-        <Headings />
-        <div className="bg-green-500 justify-center flex  w-full">total selected {selected.length}</div>
-      <table className="w-full">
-        <UserDetails userData={userData} setSelected={setSelected}  selected={selected}/>
-      </table>
-      <Pagination setCurrPage={setCurrPage} limit={limit} setLimit={setLimit} currPage={currPage} />
-
+    <div className="bg-blue-50 w-full ">
+      {loading ?
+      <span>Loading</span>
+      :
+        <div className="px-7 mb-[49px] w-full ">
+          <table className="w-full border border-collapse  border-black py-4">
+            <thead>
+              <Headings />
+              <span className="bottom-2 left-60 fixed z-10 text-xl font-semibold">Selected Employees : {selected.length}</span>
+            </thead>
+            <tbody>
+              <UserDetails userData={userData} selected={selected} setSelected={setSelected} />
+            </tbody>
+          </table>
+        </div>}
+      <Pagination currPage={currPage} setCurrPage={setCurrPage} limit={limit} setLimit={setLimit} />
     </div>
+
   )
 }
 
