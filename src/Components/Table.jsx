@@ -15,11 +15,12 @@ const Table = () => {
   const [selected, setSelected] = useState([]);
 
   const fetchData = async () => {
-
+{/*------------------------ this fetch function is in utils section  -------------------------*/}
     const data = await fetchDataFromApi({ limit: limit, pageNumber: currPage })
     // console.log(data)
     setUserData(data);
   }
+  {/*------------------------ useEffect calls the fetch function and set the loader when the data is being fetched -------------------------*/}
   useEffect(() => {
     setLoading(true);
     fetchData();
@@ -34,14 +35,18 @@ const Table = () => {
         <div className="px-7 mb-[49px] w-full ">
           <table className="w-full border border-collapse  border-black py-4">
             <thead>
+
+        {/*------------------------ headings of the table  -------------------------*/}
               <Headings />
               <span className="bottom-2 left-60 fixed z-10 text-xl font-semibold">Selected Employees : {selected.length}</span>
             </thead>
             <tbody>
+              {/*------------------------ the details will be shown in this UserDetails Section -------------------------*/}
               <UserDetails userData={userData} selected={selected} setSelected={setSelected} />
             </tbody>
           </table>
         </div>}
+        {/*------------------------ pagination logic  and number of selected person is shown here -------------------------*/}
       <Pagination currPage={currPage} setCurrPage={setCurrPage} limit={limit} setLimit={setLimit} />
     </div>
 

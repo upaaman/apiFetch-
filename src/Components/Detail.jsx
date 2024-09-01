@@ -4,6 +4,8 @@ import { useState } from "react";
 const Detail = ({ detail, selected, setSelected }) => {
   const [highlighted,setHighlighted]=useState(false);
   
+
+  {/*------------------------ here we checks the items and make them marked -------------------------*/}
   const handleCheck = (detail) => {
     setHighlighted(prev=>!prev);
     let flag = false;
@@ -19,7 +21,7 @@ const Detail = ({ detail, selected, setSelected }) => {
       const newSelected = selected.filter((item) => item !== detail.cell)
       setSelected(newSelected);
     }
-    console.log(selected)
+    // console.log(selected)
   }
   const commonCss = "border border-collapse border-black py-4 px-2";
   return (
